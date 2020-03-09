@@ -1,0 +1,111 @@
+#' tStartMetadataCapture
+#' Starts meta data capture, Initiates global objects for file, action and system infos
+#'
+#' @param repoPath optional: path of folder or file in repository to determine the PMx activity
+#' @param filePath optional: local path of folder or file in checkout folder to determine the PMx activity
+#' @param actionType should be one of Run, DataImport, TLFGeneration, ReportGeneration, Edit, Move, Copy, AnalysisFileGeneration, Analysis or Other
+#' @param offset optional: if action should be defined by a calling function of higher level
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' tStartMetadataCapture(metaDataCapture = T)
+tStartMetadataCapture <- function(metaDataCapture = T, repoPath = "", filePath = "", actionType = "Run", offset = 0) {
+  # Integration tests
+
+  tlvar$METADATA_CAPTURE <- metaDataCapture
+  
+  if(!captureMetadata()){return()}
+  
+  tlvar$ERROR_LOG <- list()
+  tlvar$ERROR_LOG_MODE <- "Standard" # ("Standard"|"Extended")
+  
+  tryCatch(withCallingHandlers({
+    
+    initConst()
+    
+    tlvar$FILE_INFOS <- list()
+    tlvar$ACTION_INFOS <- list()
+    tlvar$ACTION_STACK <- list()
+    tlvar$SYSTEM_INFO <- list()
+    
+    si <- SystemInfo()
+    tlvar$SYSTEM_INFO[[si$systemId]] <- si
+    
+    tlvar$ACTIVITY_ID <- ""
+    tStartAction(actionType = actionType, offset = offset + 1) # open top level action and remove row call of this function itself
+    
+    # get and set activityId
+    tlvar$ACTIVITY_ID <- determineActivityId(repoPath = repoPath, filePath = filePath)
+    activeAction <- getActiveAction()
+    activeAction$activityId <- tlvar$ACTIVITY_ID
+    
+  }, error = function(e) {
+    writeToLog(e)
+  }), error = function(e) {
+    e
+  })
+}
+
+#' tEndMetadataCapture
+#' Ends metadata capture and saves metadata to File or DB as specified by user
+#'
+#' @param storageMode should be one of "None", "File" or "DB"
+#' @param outputFolder where to store error logfile, json File
+#' @param jsonFileName name of metadata output file (only for storageMode = "File")
+#' @param useTimeStamp whether timestamp should be used as filename suffix (only for storageMode = "File")
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' tEndMetadataCapture(storageMode = "File", outputFolder="~/my_working_directory/", jsonFileName="my_project",useTimeStamp=T)
+#' tEndMetadataCapture(storageMode = "DB", outputFolder="~/my_working_directory/")
+tEndMetadataCapture <- function(storageMode = c("DB","File"), outputFolder = "./", jsonFileName = "", useTimeStamp = T) {
+  if(!captureMetadata()){return()}
+  
+  tryCatch(withCallingHandlers({
+    storageMode <- match.arg(storageMode) # check, that access is one of these values
+    
+    # update empty activityIds of actions and written files 
+    # in case an activityId could not be determined in tStartMetadataCapture
+    # and was first determined by an output file in the meantime, see tStoreFileMetadata
+    if (tlvar$ACTIVITY_ID != "" & getActiveAction()$activityId == "" )
+    {
+      for (ai in tlvar$ACTION_INFOS) {
+        if (ai$activityId == "") {
+          ai$activityId <- tlvar$ACTIVITY_ID 
+          for (fi in ai$outputFileInfos) {
+            if (fi$accessInfo == "write" & fi$activityId == "") { fi$activityId <- tlvar$ACTIVITY_ID }
+          }
+        }
+      }
+      # alternative for output files
+      # for (fi in tlvar$FILE_INFOS) {
+      #   if (fi$accessInfo == "write" & fi$activityId == "") { fi$activityId <- tlvar$ACTIVITY_ID }
+      # }
+    }
+
+    tEndAction() # close top level action
+    if (storageMode == "DB"){
+      tSaveMetadataToDB(outputFolder = outputFolder)
+    }
+    else if (storageMode == "File"){
+      tSaveMetadataToFile(outputFolder = outputFolder, jsonFileName = jsonFileName, useTimeStamp = useTimeStamp)
+    }
+    
+    if (length(tlvar$ERROR_LOG) > 0) {
+      writeErrorLogToJson(
+        lapply(tlvar$ERROR_LOG, as.character),
+        outputFolder
+      )
+    }
+  }, error = function(e) {
+    writeToLog(e)
+  }), error = function(e) {
+    e
+  })
+}
+
+

@@ -1,0 +1,13 @@
+{
+  "actionId": [1],
+  "actionName": ["Test action"],
+  "actionType": ["Other"],
+  "superActionId": ["NaN"],
+  "executionStarted": ["1970-01-01T01:00:00"],
+  "executed": ["1970-01-01T01:00:00"],
+  "executedBy": ["test author"],
+  "activityId": [""],
+  "systemId": [1],
+  "groupId": [""],
+  "description": ["Action info class for testing import and export"]
+}

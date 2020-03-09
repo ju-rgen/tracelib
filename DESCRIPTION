@@ -1,0 +1,22 @@
+Package: tracelib
+Title: Metadata development library
+Version: 1.0.4
+Authors@R: person("Jeevan", "Kumar", email = "jeevan.kumarhs.ext@bayer.com", role = c("aut", "cre"))
+           person("Juergen", "Jaeger", email = "juergen.jaeger@bayer.com", role = c("aut", "cre"))
+Description: Library with classes, methods, functions to capture metadata for files, actions and related entities, to write and read the metadata into temporary objects, files and a data base
+Depends: 
+    R (>= 3.2.5),
+        tools,
+        jsonlite,
+        RPostgreSQL,
+        stringr
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+Suggests: 
+    testthat (>= 2.1.0),
+    knitr,
+    rmarkdown
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.0.0
+VignetteBuilder: knitr

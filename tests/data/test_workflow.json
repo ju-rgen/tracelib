@@ -1,0 +1,66 @@
+{
+  "actionInfos": {
+    "1": {
+      "actionId": [1],
+      "actionName": ["workflow"],
+      "actionType": ["ImportFile"],
+      "superActionId": ["NaN"],
+      "scriptFileInfo": ["md5:49e8f8db4615093ff8db07ef9fddd4cc;C:/Users/euivo/OneDrive - Bayer/Personal Data/FlowTrace/tracelib/tests/testthat/helper_callstack.R"],
+      "executionStarted": ["2019-11-26T11:48:52"],
+      "executed": ["2019-11-26T11:48:52"],
+      "executedBy": ["EUIVO"],
+      "activityId": [""],
+      "systemId": [1],
+      "groupId": ["1"],
+      "description": ["testthat:test_file/testthat:with_reporter/testthat:source_file/testthat:test_code/testthat:test_that/testthat:test_code/R_GlobalEnv:workflow/tracelib:tStartMetadataCapture"]
+    },
+    "2": {
+      "actionId": [2],
+      "actionName": ["call_action"],
+      "actionType": ["Other"],
+      "superActionId": [1],
+      "scriptFileInfo": ["md5:49e8f8db4615093ff8db07ef9fddd4cc;C:/Users/euivo/OneDrive - Bayer/Personal Data/FlowTrace/tracelib/tests/testthat/helper_callstack.R"],
+      "executionStarted": ["2019-11-26T11:48:52"],
+      "executed": ["2019-11-26T11:48:52"],
+      "executedBy": ["EUIVO"],
+      "activityId": [""],
+      "systemId": [1],
+      "groupId": ["1"],
+      "description": ["testthat:test_file/testthat:with_reporter/testthat:source_file/testthat:test_code/testthat:test_that/testthat:test_code/R_GlobalEnv:workflow/R_GlobalEnv:call_action/tracelib:tStartAction"]
+    }
+  },
+  "fileInfos": {
+    "md5:49e8f8db4615093ff8db07ef9fddd4cc;C:/Users/euivo/OneDrive - Bayer/Personal Data/FlowTrace/tracelib/tests/testthat/helper_callstack.R": {
+      "fileHash": ["md5:49e8f8db4615093ff8db07ef9fddd4cc"],
+      "repoType": ["Local"],
+      "repoPath": ["C:/Users/euivo/OneDrive - Bayer/Personal Data/FlowTrace/tracelib/tests/testthat/helper_callstack.R"],
+      "repoVersion": ["-1"],
+      "repoFileStatus": [""],
+      "repoModified": ["1970-01-01T01:00:00"],
+      "repoModifiedBy": [""],
+      "localFilePath": ["C:/Users/euivo/OneDrive - Bayer/Personal Data/FlowTrace/tracelib/tests/testthat/helper_callstack.R"],
+      "localModified": ["2019-11-18T14:37:56"],
+      "localModifiedBy": [""],
+      "fileType": ["Script"],
+      "groupId": [""],
+      "activityId": [""],
+      "qualityChecked": [false],
+      "qualityComputed": [false],
+      "description": [""],
+      "actionInfo": [""],
+      "accessInfo": ["read"],
+      "repoRoot": [""]
+    }
+  },
+  "systemInfo": [
+    {
+      "systemId": [1],
+      "systemName": ["WDEC033644"],
+      "operatingSystem": ["Windows"],
+      "osVersion": ["10 x64"],
+      "RVersion": ["3.6.0"],
+      "validated": [false],
+      "description": [""]
+    }
+  ]
+}
