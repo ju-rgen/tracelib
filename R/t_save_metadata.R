@@ -58,6 +58,10 @@ tSaveMetadataToDB <- function(outputFolder = "./") {
   tryCatch(
     withCallingHandlers({
       dbCon <- getDBCon("keys.json")
+      if (is.null(dbCon)) {
+        logErrorMessage("No metadata written to DB due to missing DB Connection.")
+        return("")
+      }
       on.exit(dbDisconnect(dbCon))
       
       dbBegin(dbCon)

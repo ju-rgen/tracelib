@@ -65,6 +65,7 @@ logWarning <- function(warning) {
 
 logErrorMessage <- function(message) {
   # Unit test ?!
+  print(message)
   logEntry <- list(
     actionId = "",
     time = Sys.time(),

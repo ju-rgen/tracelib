@@ -60,12 +60,11 @@ getActiveAction <- function() {
 determineActivityId <- function(repoPath = "", filePath = "") {
 
   dbCon <- getDBCon("keys.json")
-  on.exit(dbDisconnect(dbCon))
-  
   if (is.null(dbCon)) {
-    print("DB Connection not established.")
+    logErrorMessage("No activityId determined due to missing DB Connection.")
     return("")
   }
+  on.exit(dbDisconnect(dbCon))
   
   if (repoPath == "" | is.na(repoPath)) {
     
