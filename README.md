@@ -20,14 +20,6 @@ This is a basic example which shows you how to solve a common problem:
 ``` r
 library(tracelib)
 ## basic example code
-tStartRun("File")
 
-call_tstart_action()
-
-tReadCsv(filepath)
-
-call_tend_action()
-
-tEndRun(jsonFilePath)
 ```
 
