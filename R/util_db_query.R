@@ -10,7 +10,7 @@ getDBCon <- function(credFile) {
   dbCon <- tryCatch({
     credPath <- system.file(credFile, package = "tracelib", mustWork = F)
     if (credPath == ''){
-      logErrorMessage(paste0('No DB Connection established, because file ',credFile,' does not exist in package tracelib'))
+      logErrorMessage(paste0('No DB connection established, because file ',credFile,' does not exist in package tracelib'))
       return(NULL)
     }
     cred <- fromJSON(credPath)
