@@ -37,9 +37,11 @@ tStartMetadataCapture <- function(metaDataCapture = T, repoPath = "", filePath =
     tStartAction(actionType = actionType, offset = offset + 1) # open top level action and remove row call of this function itself
     
     # get and set activityId
-    tlvar$ACTIVITY_ID <- determineActivityId(repoPath = repoPath, filePath = filePath)
     activeAction <- getActiveAction()
-    activeAction$activityId <- tlvar$ACTIVITY_ID
+    
+    # JJ 2020-04-03 separate DB code - see comment for determineActivityId in db_query.R
+    # tlvar$ACTIVITY_ID <- determineActivityId(repoPath = repoPath, filePath = filePath)
+    # activeAction$activityId <- tlvar$ACTIVITY_ID
     
   }, error = function(e) {
     writeToLog(e)
@@ -51,7 +53,6 @@ tStartMetadataCapture <- function(metaDataCapture = T, repoPath = "", filePath =
 #' tEndMetadataCapture
 #' Ends metadata capture and saves metadata to File or DB as specified by user
 #'
-#' @param storageMode should be one of "None", "File" or "DB"
 #' @param outputFolder where to store error logfile, json File
 #' @param jsonFileName name of metadata output file (only for storageMode = "File")
 #' @param useTimeStamp whether timestamp should be used as filename suffix (only for storageMode = "File")
@@ -62,11 +63,15 @@ tStartMetadataCapture <- function(metaDataCapture = T, repoPath = "", filePath =
 #' @examples
 #' tEndMetadataCapture(storageMode = "File", outputFolder="~/my_working_directory/", jsonFileName="my_project",useTimeStamp=T)
 #' tEndMetadataCapture(storageMode = "DB", outputFolder="~/my_working_directory/")
-tEndMetadataCapture <- function(storageMode = c("DB","File"), outputFolder = "./", jsonFileName = "", useTimeStamp = T) {
+tEndMetadataCapture <- function(storageMode = "File", outputFolder = "./", jsonFileName = "", useTimeStamp = T) {
+  # JJ 2020-04-03 separate DB code
+  # argument storageMode = c("DB","File") changed, kept just for compatibility reasons in tests
+  # @param storageMode should be one of "None", "File" or "DB"
+  
   if(!captureMetadata()){return()}
   
   tryCatch(withCallingHandlers({
-    storageMode <- match.arg(storageMode) # check, that access is one of these values
+    # storageMode <- match.arg(storageMode) # check, that access is one of these values
     
     # update empty activityIds of actions and written files 
     # in case an activityId could not be determined in tStartMetadataCapture
@@ -88,12 +93,15 @@ tEndMetadataCapture <- function(storageMode = c("DB","File"), outputFolder = "./
     }
 
     tEndAction() # close top level action
-    if (storageMode == "DB"){
-      tSaveMetadataToDB(outputFolder = outputFolder)
-    }
-    else if (storageMode == "File"){
-      tSaveMetadataToFile(outputFolder = outputFolder, jsonFileName = jsonFileName, useTimeStamp = useTimeStamp)
-    }
+    tSaveMetadataToFile(outputFolder = outputFolder, jsonFileName = jsonFileName, useTimeStamp = useTimeStamp)
+
+    #  JJ 2020-04-03 separate DB code
+    # if (storageMode == "DB"){
+    #   tSaveMetadataToDB(outputFolder = outputFolder)
+    # }
+    # else if (storageMode == "File"){
+    #   tSaveMetadataToFile(outputFolder = outputFolder, jsonFileName = jsonFileName, useTimeStamp = useTimeStamp)
+    # }
     
     if (length(tlvar$ERROR_LOG) > 0) {
       writeErrorLogToJson(

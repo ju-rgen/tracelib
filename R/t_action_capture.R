@@ -28,7 +28,7 @@ tStartAction <- function(actionType = "Other", offset = 0) {
 
     actionId <- length(tlvar$ACTION_INFOS) + 1
     ai$actionId <- actionId
-    ai$activityId <- tlvar$ACTIVITY_ID
+    # ai$activityId <- tlvar$ACTIVITY_ID #  JJ 2020-04-03 separate DB code
 
     fi <- ai$scriptFileInfo # [[1]]
     tlvar$FILE_INFOS[[fi$getKey()]] <- fi
