@@ -22,6 +22,9 @@ getFullFilePath <- function(filePath) {
 #' @examples
 getSVNInfo <- function(filePath) {
   # Integration test
+  
+  if (tlconst$READ_SVN_INFO == FALSE) { return(NULL) }
+  
   cmd <- sprintf('svn info "%s"', getFullFilePath(filePath))
 
   tryCatch({
@@ -80,6 +83,7 @@ extractTagValue <- function(svninfo, tag) {
 #' @examples
 getSVNStatus <- function(filePath) {
   # Integration test
+  if (tlconst$READ_SVN_INFO == FALSE) { return("-N") }
   cmd <- sprintf('svn status "%s"', filePath)
 
   svnstatus <- tryCatch({

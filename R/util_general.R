@@ -45,12 +45,35 @@ renameColumns <- function(df, changelist) {
 #' @export
 #'
 #' @examples
+readConfigList <- function(configFile) {
+  # Unit test (Prio 2)
+  configRows <- readLines(configFile)
+  # FileTypeConfig <- configFile
+  config <- list()
+
+  for (i in 1:length(configRows)) { # nrow
+    entries <- unlist(strsplit(as.character(configRows[i]), ",")) # ,1
+    if (length(entries) >= 2) {
+      config[entries[[1]]] <- entries[[2]]
+    }
+  }
+  return(config)
+}
+
+#' Title
+#'
+#' @param configFile
+#'
+#' @return
+#' @export
+#'
+#' @examples
 prepareFileTypeConfigGlist <- function(configFile) {
   # Unit test (Prio 2)
   FileTypeConfig <- readLines(configFile)
   # FileTypeConfig <- configFile
   FileTypeConfigList <- list()
-
+  
   for (i in 1:length(FileTypeConfig)) { # nrow
     type <- unlist(strsplit(as.character(FileTypeConfig[i]), ",")) # ,1
     if (length(type) > 1) {

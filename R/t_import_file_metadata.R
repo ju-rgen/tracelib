@@ -61,10 +61,11 @@ tImportFile <-
         fiSource <- FileInfo$new(init = "manual", access = "read")
         fiTarget <- FileInfo$new(init = "manual", access = "write")
 
-        activityId <- determineActivityId(repoPath = targetFilePath)
-        if (activityId == "") {
-          activityId <- tlvar$ACTIVITY_ID
-        }
+        # JJ 2020-04-03 separate DB code - see comment for determineActivityId in db_query.R
+        # activityId <- determineActivityId(repoPath = targetFilePath)
+        # if (activityId == "") {
+        #   activityId <- tlvar$ACTIVITY_ID
+        # }
 
         fiSource$repoType <- sourceRepoType
         fiSource$repoPath <- sourceFilePath
@@ -309,16 +310,17 @@ tStoreFileMetadata <- function(access = c("read", "write"),
         fi$actionInfo <- paste(actionInfo$actionId, actionInfo$actionName, collapse = "-") # only fill, when file is written
         
         # only fill activityId, when file is written
-        activityId <- determineActivityId(repoPath = fi$repoPath)
-        if (activityId == "") { 
-          activityId <- tlvar$ACTIVITY_ID 
-        } else { 
-          # if activityId was found and action or global activityId was empty, update it by this activityId,
-          # because activity determination of output file path is probably ok and better than no activity
-          if (actionInfo$activityId == "") { actionInfo$activityId <- activityId }
-          if (tlvar$ACTIVITY_ID == "") { tlvar$ACTIVITY_ID <- activityId }
-        }
-        fi$activityId <- activityId 
+        # JJ 2020-04-03 separate DB code - see comment for determineActivityId in db_query.R
+        # activityId <- determineActivityId(repoPath = fi$repoPath)
+        # if (activityId == "") { 
+        #   activityId <- tlvar$ACTIVITY_ID 
+        # } else { 
+        #   # if activityId was found and action or global activityId was empty, update it by this activityId,
+        #   # because activity determination of output file path is probably ok and better than no activity
+        #   if (actionInfo$activityId == "") { actionInfo$activityId <- activityId }
+        #   if (tlvar$ACTIVITY_ID == "") { tlvar$ACTIVITY_ID <- activityId }
+        # }
+        # fi$activityId <- activityId 
 
         actionInfo$addOutput(fi) # only fill, when file is written
       }

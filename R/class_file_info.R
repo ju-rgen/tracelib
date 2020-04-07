@@ -129,27 +129,28 @@ FileInfo <- setRefClass("FileInfo",
         key <- paste0(.self$fileHash, ";", .self$repoPath)
       }
       return(key)
-    },
-
-    insertToDB = function(dbCon) {
-      dbFields <- dbListFields(dbCon, c(tlconst$DB_SCHEMA, "file"))
-      infosFrame <- addToFrame()
-      dataToInsert <- infosFrame[, which((names(infosFrame) %in% dbFields) == TRUE)]
-
-      if (fileInfoPrimaryKeyExists(dbCon, .self$fileHash, .self$repoPath, .self$repoVersion) == FALSE) {
-        # print(paste(.self$fileHash,.self$repoPath,.self$repoVersion,collapse = "-"))
-        dbWriteTable(dbCon, c(tlconst$DB_SCHEMA, "file"),
-          value = dataToInsert, append = TRUE,
-          row.names = FALSE
-        )
-      } else {
-        if (.self$accessInfo == "write") {
-          warning(paste0( # Change this to error/write warnings to log file
-            "Could not overwrite file meta data for ", .self$localFilePath,
-            " for action ", .self$actionInfo, " as the file is unchanged"
-          ))
-        }
-      }
     }
+    # ,
+    #  JJ 2020-04-03 separate DB code
+    # insertToDB = function(dbCon) {
+    #   dbFields <- dbListFields(dbCon, c(tlconst$DB_SCHEMA, "file"))
+    #   infosFrame <- addToFrame()
+    #   dataToInsert <- infosFrame[, which((names(infosFrame) %in% dbFields) == TRUE)]
+    # 
+    #   if (fileInfoPrimaryKeyExists(dbCon, .self$fileHash, .self$repoPath, .self$repoVersion) == FALSE) {
+    #     # print(paste(.self$fileHash,.self$repoPath,.self$repoVersion,collapse = "-"))
+    #     dbWriteTable(dbCon, c(tlconst$DB_SCHEMA, "file"),
+    #       value = dataToInsert, append = TRUE,
+    #       row.names = FALSE
+    #     )
+    #   } else {
+    #     if (.self$accessInfo == "write") {
+    #       warning(paste0( # Change this to error/write warnings to log file
+    #         "Could not overwrite file meta data for ", .self$localFilePath,
+    #         " for action ", .self$actionInfo, " as the file is unchanged"
+    #       ))
+    #     }
+    #   }
+    # }
   )
 )

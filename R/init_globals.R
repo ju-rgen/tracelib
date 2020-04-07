@@ -68,4 +68,12 @@ initConst <- function() {
 
   fTypePath <- system.file("extdata", "file_type_suffixes.csv", package = "tracelib", mustWork = T)
   tlconst$FILE_TYPE_LIST <- prepareFileTypeConfigGlist(fTypePath)
+  
+  fTypePath <- system.file("extdata", "config.csv", package = "tracelib", mustWork = T)
+  tlconst$CONFIG <- readConfigList(fTypePath)
+  
+  tlconst$READ_SVN_INFO <- TRUE
+  if (tlconst$CONFIG[["READ_SVN_INFO"]] == FALSE) {
+    tlconst$READ_SVN_INFO <- FALSE
+  }
 }

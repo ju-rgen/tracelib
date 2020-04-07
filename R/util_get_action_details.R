@@ -48,47 +48,4 @@ getActiveAction <- function() {
   return(ai)
 }
 
-#' determineActivityId
-#'
-#' @param repoPath optional: path of folder or file in repository
-#' @param filePath optional: local path of folder or file in checkout folder
-#'
-#' @return
-#' @export
-#'
-#' @examples
-determineActivityId <- function(repoPath = "", filePath = "") {
-
-  dbCon <- getDBCon("keys.json")
-  if (is.null(dbCon)) {
-    logErrorMessage("No activityId determined due to missing DB Connection.")
-    return("")
-  }
-  on.exit(dbDisconnect(dbCon))
-  
-  if (repoPath == "" | is.na(repoPath)) {
-    
-    if (filePath != "" & !is.na(filePath)) {
-      SVNinfo <- getSVNInfo(filePath)
-      if (!is.null(SVNinfo)) {
-        repoPath <- SVNinfo[["URL"]]
-      }
-    } else {
-      scriptFileInfo <- getActiveAction()$scriptFileInfo 
-      if (!is.null(scriptFileInfo)) {
-        repoPath <- scriptFileInfo$repoPath
-      }
-    }
-  }
-  
-  if (is.null(repoPath)) {
-    return("")
-  } 
-  if (str_length(repoPath) < 5) {
-    return("")
-  } # Foreign key constraint need to change this
-  
-  activityId <- getActivityIdForRepoPath(dbCon = dbCon, repoPath = repoPath)
-  return(activityId)
-}
 

@@ -220,18 +220,19 @@ ActionInfo <- setRefClass(
 
       actionFileFrame <- rbind.data.frame(actionFileFrame, actionFileRecord, stringsAsFactors = FALSE)
       return(actionFileFrame)
-    },
-
-    insertToDB = function(dbCon) {
-      # error handling done in tSaveMetadataToDB
-      actionFrame <- toActionFrame(dbListFields(dbCon, c(tlconst$DB_SCHEMA, "action")))
-
-      dbWriteTable(dbCon, c(tlconst$DB_SCHEMA, "action"), value = actionFrame, append = TRUE, row.names = FALSE)
-      .self$actionId <- getLastActionId(dbCon) 
-
-      actionFileFrame <- toActionFileFrame(dbListFields(dbCon, c(tlconst$DB_SCHEMA, "action_file")))
-
-      dbWriteTable(dbCon, c(tlconst$DB_SCHEMA, "action_file"), value = actionFileFrame, append = TRUE, row.names = FALSE)
     }
+    # ,
+    # JJ 2020-04-03 separate DB code
+    # insertToDB = function(dbCon) {
+    #   # error handling done in tSaveMetadataToDB
+    #   actionFrame <- toActionFrame(dbListFields(dbCon, c(tlconst$DB_SCHEMA, "action")))
+    # 
+    #   dbWriteTable(dbCon, c(tlconst$DB_SCHEMA, "action"), value = actionFrame, append = TRUE, row.names = FALSE)
+    #   .self$actionId <- getLastActionId(dbCon) 
+    # 
+    #   actionFileFrame <- toActionFileFrame(dbListFields(dbCon, c(tlconst$DB_SCHEMA, "action_file")))
+    # 
+    #   dbWriteTable(dbCon, c(tlconst$DB_SCHEMA, "action_file"), value = actionFileFrame, append = TRUE, row.names = FALSE)
+    # }
   )
 )

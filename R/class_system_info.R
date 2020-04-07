@@ -58,17 +58,18 @@ SystemInfo <- setRefClass(
       # Unit test
       df <- as.data.frame(toList())
       renameColumns(df, changelist = tlconst$SI_DB_MAP)
-    },
-
-    insertToDB = function(dbCon) {
-      dbFields <- dbListFields(dbCon, c(tlconst$DB_SCHEMA, "system"))
-      infosFrame <- addToFrame()
-      dataToInsert <- infosFrame[, which((names(infosFrame) %in% dbFields) == TRUE)]
-
-      dbWriteTable(dbCon, c(tlconst$DB_SCHEMA, "system"),
-        value = dataToInsert, append = TRUE,
-        row.names = FALSE
-      )
     }
+    # ,
+    #  JJ 2020-04-03 separate DB code
+    # insertToDB = function(dbCon) {
+    #   dbFields <- dbListFields(dbCon, c(tlconst$DB_SCHEMA, "system"))
+    #   infosFrame <- addToFrame()
+    #   dataToInsert <- infosFrame[, which((names(infosFrame) %in% dbFields) == TRUE)]
+    # 
+    #   dbWriteTable(dbCon, c(tlconst$DB_SCHEMA, "system"),
+    #     value = dataToInsert, append = TRUE,
+    #     row.names = FALSE
+    #   )
+    # }
   )
 )
