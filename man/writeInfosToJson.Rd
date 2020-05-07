@@ -4,11 +4,20 @@
 \alias{writeInfosToJson}
 \title{Title}
 \usage{
-writeInfosToJson(fileInfos, actionInfos, systemInfo, outputFolder,
-  jsonFileName, useTimeStamp)
+writeInfosToJson(
+  fileInfos,
+  actionInfos,
+  systemInfo,
+  outputFolder,
+  jsonFileName,
+  useTimeStamp
+)
 }
 \arguments{
 \item{outputFolder}{}
+}
+\value{
+
 }
 \description{
 Title

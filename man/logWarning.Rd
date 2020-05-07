@@ -9,6 +9,9 @@ logWarning(warning)
 \arguments{
 \item{error}{}
 }
+\value{
+
+}
 \description{
 logWarning
 }

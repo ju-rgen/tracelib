@@ -9,6 +9,9 @@ getSVNStatus(filePath)
 \arguments{
 \item{aPath}{}
 }
+\value{
+
+}
 \description{
 Title
 }

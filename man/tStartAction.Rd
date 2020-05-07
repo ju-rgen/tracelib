@@ -11,6 +11,9 @@ tStartAction(actionType = "Other", offset = 0)
 
 \item{offset}{optional: if action should be defined by a calling function of higher level}
 }
+\value{
+
+}
 \description{
 Starts meta data capture for an action
 }

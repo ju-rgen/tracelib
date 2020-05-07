@@ -6,6 +6,9 @@
 \usage{
 getCallingFunctionName(frame = -4)
 }
+\value{
+
+}
 \description{
 Title
 }

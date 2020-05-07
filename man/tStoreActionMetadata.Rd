@@ -4,10 +4,18 @@
 \alias{tStoreActionMetadata}
 \title{creates explicit metadata for action}
 \usage{
-tStoreActionMetadata(actionType = "Other", actionDescription = "",
-  actionName = "", executedBy = "", executed = tlconst$OT,
-  executionStarted = tlconst$OT, inputFilePaths, outputFilePaths,
-  filesMetadataFrame, offset = 0)
+tStoreActionMetadata(
+  actionType = "Other",
+  actionDescription = "",
+  actionName = "",
+  executedBy = "",
+  executed = tlconst$OT,
+  executionStarted = tlconst$OT,
+  inputFilePaths,
+  outputFilePaths,
+  filesMetadataFrame,
+  offset = 0
+)
 }
 \arguments{
 \item{actionType}{should be one of DataImport, TLFGeneration, ReportGeneration, Edit, Move, Copy, AnalysisFileGeneration, Analysis or Other}
@@ -29,6 +37,9 @@ tStoreActionMetadata(actionType = "Other", actionDescription = "",
 \item{filesMetadataFrame}{dataframe of output files metadata (see: createFilesMetadataFrame);only one of inputFilePaths/outputFilePaths and filesMetadataFrame may be given}
 
 \item{offset}{}
+}
+\value{
+
 }
 \description{
 creates explicit metadata for action

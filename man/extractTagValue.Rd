@@ -9,6 +9,9 @@ extractTagValue(svninfo, tag)
 \arguments{
 \item{tag}{}
 }
+\value{
+
+}
 \description{
 Title
 }

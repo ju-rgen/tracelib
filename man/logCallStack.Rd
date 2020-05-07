@@ -4,13 +4,15 @@
 \alias{logCallStack}
 \title{logCallStack}
 \usage{
-logCallStack(prefix = "cs_", excludeEnvironments = c("base",
-  "methods"))
+logCallStack(prefix = "cs_", excludeEnvironments = c("base", "methods"))
 }
 \arguments{
 \item{prefix}{file name consists of prefix and timestamp}
 
 \item{excludeEnvironments}{("implicit" functions from these environments are not included into the callstack)}
+}
+\value{
+
 }
 \description{
 For test purposes only: writes complete callstack to a file in CALLSTACKLOGDIR, if and only if this global variable is given

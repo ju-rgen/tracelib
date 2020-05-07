@@ -9,6 +9,9 @@ getSVNInfo(filePath)
 \arguments{
 \item{filePath}{}
 }
+\value{
+
+}
 \description{
 Title
 }

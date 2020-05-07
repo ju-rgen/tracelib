@@ -9,6 +9,9 @@ writeToLog(error)
 \arguments{
 \item{error}{}
 }
+\value{
+
+}
 \description{
 writeToLog
 }

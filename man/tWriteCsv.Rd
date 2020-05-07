@@ -13,6 +13,9 @@ tWriteCsv(x, file, ...)
 
 \item{...}{other arguments to write.csv}
 }
+\value{
+
+}
 \description{
 Wrapper function for write.csv to capture metadata
 }

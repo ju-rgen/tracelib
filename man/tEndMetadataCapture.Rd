@@ -5,8 +5,12 @@
 \title{tEndMetadataCapture
 Ends metadata capture and saves metadata to File or DB as specified by user}
 \usage{
-tEndMetadataCapture(storageMode = "File", outputFolder = "./",
-  jsonFileName = "", useTimeStamp = T)
+tEndMetadataCapture(
+  storageMode = "File",
+  outputFolder = "./",
+  jsonFileName = "",
+  useTimeStamp = T
+)
 }
 \arguments{
 \item{outputFolder}{where to store error logfile, json File}
@@ -14,6 +18,9 @@ tEndMetadataCapture(storageMode = "File", outputFolder = "./",
 \item{jsonFileName}{name of metadata output file (only for storageMode = "File")}
 
 \item{useTimeStamp}{whether timestamp should be used as filename suffix (only for storageMode = "File")}
+}
+\value{
+
 }
 \description{
 tEndMetadataCapture

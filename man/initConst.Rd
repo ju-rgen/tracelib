@@ -6,6 +6,9 @@
 \usage{
 initConst()
 }
+\value{
+
+}
 \description{
 Title
 }

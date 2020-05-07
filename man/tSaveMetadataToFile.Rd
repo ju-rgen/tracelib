@@ -5,8 +5,7 @@
 \title{tSaveMetadataToFile
 Saves captured metadata information to a json file}
 \usage{
-tSaveMetadataToFile(outputFolder = "./", jsonFileName = "",
-  useTimeStamp = T)
+tSaveMetadataToFile(outputFolder = "./", jsonFileName = "", useTimeStamp = T)
 }
 \arguments{
 \item{outputFolder}{directory path where file should be written, defaults to current working directory if not provided}

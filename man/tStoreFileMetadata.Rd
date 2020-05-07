@@ -4,10 +4,19 @@
 \alias{tStoreFileMetadata}
 \title{Stores file metadata}
 \usage{
-tStoreFileMetadata(access = c("read", "write"), filePath = NA,
-  fileHash = NA, repoType = NA, repoRoot = NA, repoPath = NA,
-  repoVersion = NA, repoModified = NA, repoModifiedBy = NA,
-  qualityChecked = NA, description = NA)
+tStoreFileMetadata(
+  access = c("read", "write"),
+  filePath = NA,
+  fileHash = NA,
+  repoType = NA,
+  repoRoot = NA,
+  repoPath = NA,
+  repoVersion = NA,
+  repoModified = NA,
+  repoModifiedBy = NA,
+  qualityChecked = NA,
+  description = NA
+)
 }
 \arguments{
 \item{access}{Should be one of read or Write}
@@ -31,6 +40,9 @@ tStoreFileMetadata(access = c("read", "write"), filePath = NA,
 \item{qualityChecked}{optional:}
 
 \item{description}{optional:}
+}
+\value{
+
 }
 \description{
 this function can be called explicitly from users of traceLib if files are read or written by functions, where no t_wrapper is available

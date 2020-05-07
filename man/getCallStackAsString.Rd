@@ -11,6 +11,9 @@ getCallStackAsString(offset = 0)
 \item to cut the last rows of the callstack
 }}
 }
+\value{
+
+}
 \description{
 getCallStackAsString
 }

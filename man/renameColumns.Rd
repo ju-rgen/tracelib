@@ -9,6 +9,9 @@ renameColumns(df, changelist)
 \arguments{
 \item{changelist}{}
 }
+\value{
+
+}
 \description{
 Title
 }

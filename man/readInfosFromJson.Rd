@@ -9,6 +9,9 @@ readInfosFromJson(jsonFile)
 \arguments{
 \item{jsonFile}{}
 }
+\value{
+
+}
 \description{
 Title
 }

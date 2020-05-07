@@ -9,6 +9,9 @@ readJSONFiles(folderPath)
 \arguments{
 \item{folderPath}{}
 }
+\value{
+
+}
 \description{
 Read JSON files from folder
 }

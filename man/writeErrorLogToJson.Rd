@@ -9,6 +9,9 @@ writeErrorLogToJson(errorLog, outputFolder)
 \arguments{
 \item{errorLog}{}
 }
+\value{
+
+}
 \description{
 Title
 }

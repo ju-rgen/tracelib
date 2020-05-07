@@ -6,6 +6,9 @@
 \usage{
 captureMetadata()
 }
+\value{
+
+}
 \description{
 Checks if Metadata capture value is set
 }

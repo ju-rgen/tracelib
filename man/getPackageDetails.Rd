@@ -9,6 +9,9 @@ getPackageDetails(envName)
 \arguments{
 \item{func}{}
 }
+\value{
+
+}
 \description{
 Title
 }

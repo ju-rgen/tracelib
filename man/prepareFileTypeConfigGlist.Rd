@@ -9,6 +9,9 @@ prepareFileTypeConfigGlist(configFile)
 \arguments{
 \item{configFile}{}
 }
+\value{
+
+}
 \description{
 Title
 }

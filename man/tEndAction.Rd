@@ -6,6 +6,9 @@
 \usage{
 tEndAction()
 }
+\value{
+
+}
 \description{
 Indicates end of action
 }

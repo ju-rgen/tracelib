@@ -9,6 +9,9 @@ getFileInfos(keyList, fileInfos)
 \arguments{
 \item{fileInfos}{}
 }
+\value{
+
+}
 \description{
 Title
 }

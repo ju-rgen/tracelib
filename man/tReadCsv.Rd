@@ -9,6 +9,9 @@ tReadCsv(file, ...)
 \arguments{
 \item{...}{pass on other arguments as you use the read.csv}
 }
+\value{
+
+}
 \description{
 Wrapper function for read.csv to capture metadata
 }

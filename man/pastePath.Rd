@@ -9,6 +9,9 @@ pastePath(path = "clipboard")
 \arguments{
 \item{path}{}
 }
+\value{
+
+}
 \description{
 Title
 }

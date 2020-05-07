@@ -4,11 +4,19 @@
 \alias{writeJsonObjectToFile}
 \title{Title}
 \usage{
-writeJsonObjectToFile(jsonObj, outputFolder, jsonFileName = "",
-  useTopLevelAction = F, useTimeStamp = T)
+writeJsonObjectToFile(
+  jsonObj,
+  outputFolder,
+  jsonFileName = "",
+  useTopLevelAction = F,
+  useTimeStamp = T
+)
 }
 \arguments{
 \item{errorLog}{}
+}
+\value{
+
 }
 \description{
 Title

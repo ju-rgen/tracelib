@@ -6,6 +6,9 @@
 \usage{
 setGlobalStackInfos()
 }
+\value{
+
+}
 \description{
 For test purposes only: provides information about R calls, frames, functions where this function is called to the global variable STACKINFOS
 }

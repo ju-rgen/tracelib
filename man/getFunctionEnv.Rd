@@ -9,6 +9,9 @@ getFunctionEnv(funcName)
 \arguments{
 \item{func}{}
 }
+\value{
+
+}
 \description{
 Title
 }

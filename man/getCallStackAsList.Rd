@@ -4,8 +4,7 @@
 \alias{getCallStackAsList}
 \title{getCallStackAsList}
 \usage{
-getCallStackAsList(offset = 0, excludeEnvironments = c("base",
-  "methods"))
+getCallStackAsList(offset = 0, excludeEnvironments = c("base", "methods"))
 }
 \arguments{
 \item{offset}{\itemize{
@@ -13,6 +12,9 @@ getCallStackAsList(offset = 0, excludeEnvironments = c("base",
 }}
 
 \item{excludeEnvironments}{("implicit" functions from these environments are not included into the callstack)}
+}
+\value{
+
 }
 \description{
 getCallStackAsList
