@@ -37,13 +37,14 @@ getCallStack <- function(offset = 0, excludeEnvironments = c("base", "methods"))
         next
       } # or  =="closure"    != "symbol"   Problem actionInfo$addInput not symbol ....
 
+      funcName <- toString(funcSymbol)
+      betterFuncName <- ""
+      
       if (typeof(funcSymbol) == "symbol") {
-        funcName <- toString(funcSymbol)
-
         # in case of indirect call via do.call choose 2nd argument
         if (funcName == "do.call") {
           argumentFuncName <- toString(as.list(call)[[2]])
-          funcName <- paste0(funcName, "=", argumentFuncName) # add the name of the passed function
+          betterFuncName <- paste0(funcName, "=", argumentFuncName) # add the name of the passed function
           func <- match.fun(argumentFuncName)
         }
 
@@ -51,16 +52,57 @@ getCallStack <- function(offset = 0, excludeEnvironments = c("base", "methods"))
         else if (i > 1) {
           if (funcName %in% names(sys.call(i - 1))) {
             argumentFuncName <- sys.call(i - 1)[[funcName]]
-            funcName <- paste0(funcName, "=", argumentFuncName) # add the name of the passed function
+            betterFuncName <- paste0(funcName, "=", argumentFuncName) # add the name of the passed function
             func <- match.fun(argumentFuncName)
           }
         }
 
-        # in case of object method call initialize
+      # in case of object method call
       } else if (typeof(funcSymbol) == "language" & length(funcSymbol) == 3) {
-        funcName <- toString(funcSymbol[[3]])
-      } else {
-        funcName <- toString(funcSymbol)
+        operatorName <- toString(funcSymbol[[1]])
+        methName <- toString(funcSymbol[[3]])
+        
+        if (typeof(funcSymbol[[2]]) == "symbol"){
+           varName <- toString(funcSymbol[[2]]  )
+        
+          # ensure that it is an object method and funcSymbol[[2]] is a variable name (e.g. not true for initialize call)
+          # variable is not defined in this environment, but in parent environment
+          if (operatorName == "$" & exists(varName, envir = sys.frames()[[i-1]], inherits = TRUE)){
+            # add class name
+            varObj <- get0(varName, envir = sys.frames()[[i-1]], inherits = TRUE)
+            class_name <- as.character(class(varObj)[[1]]) # class(varObj) can return a vector, e.g. "R6C" "R6"
+            betterFuncName <- paste0( class_name, "$", methName )
+          }
+          
+        } else if (typeof(funcSymbol[[2]]) == "language" & length(funcSymbol[[2]]) == 3){
+          varTriple <- funcSymbol[[2]]
+          
+          operator2Name <- toString(varTriple[[1]])
+          var2Name <- toString(varTriple[[2]])
+          field2Name <- toString(varTriple[[3]])
+          
+          # ensure that it is an object method and funcSymbol[[2]] is a variable name (e.g. not true for initialize call)
+          # variable is not defined in this environment, but in parent environment
+          if (operator2Name == "$" & existsInEnvIdx(var2Name, i-1)){ # e.g. self$simulatePopulation$runTask
+            # add class name
+            var2Obj <- getFromEnvIdx(var2Name, i-1)
+            varObj <- var2Obj[[field2Name]]
+            class_name <- as.character(class(varObj)[[1]]) 
+            betterFuncName <- paste0( class_name, "$", methName )
+          } else if (operator2Name == "[[" & existsInEnvIdx(var2Name, i-1) & existsInEnvIdx(field2Name, i-1)){ # e.g. self[[plotTask]]$runTask
+            # add class name
+            field2Obj <- getFromEnvIdx(field2Name, i-1)
+            var2Obj <- getFromEnvIdx(var2Name, i-1)
+            varObj <- var2Obj[[field2Obj]]
+            class_name <- as.character(class(varObj)[[1]]) 
+            betterFuncName <- paste0( class_name, "$", methName )
+          } 
+          
+        } 
+
+      } 
+      if (betterFuncName != ""){
+        funcName <- betterFuncName
       }
 
       envName <- getEnvironmentName(environment(func))
@@ -93,6 +135,14 @@ getCallStack <- function(offset = 0, excludeEnvironments = c("base", "methods"))
     nskip <- nrow(df) - 1
   } # in case of wrong offset return the first row of df
   return(head(df, -nskip))
+}
+
+existsInEnvIdx <- function(varName, envIdx) {
+  return( exists(varName, envir = sys.frames()[[envIdx]], inherits = TRUE) )
+}
+
+getFromEnvIdx <- function(varName, envIdx) {
+  return( get0(varName, envir = sys.frames()[[envIdx]], inherits = TRUE) )
 }
 
 #' getEnvironmentName
@@ -189,7 +239,7 @@ logCallStack <- function(prefix = "cs_", excludeEnvironments = c("base", "method
     if (exists("CALLSTACKLOGDIR")) {
       t <- as.POSIXlt(Sys.time(), "GMT")
       filename <- paste0(prefix, toString(t$hour), toString(t$min), toString(floor(t$sec * 1000)), ".csv")
-      write.csv(dfCallstack, paste0(CALLSTACKLOGDIR, filename))
+      write.csv(dfCallstack, paste0(CALLSTACKLOGDIR, "/", filename))
     }
   }, error = function(e) {
     e

@@ -4,7 +4,8 @@
 \alias{tStartAction}
 \title{Starts meta data capture for an action}
 \usage{
-tStartAction(actionType = "Other", offset = 0)
+tStartAction(actionType = "Other", actionName = NA, description = NA,
+  offset = 0)
 }
 \arguments{
 \item{actionType}{Should be one of DataImport, TLFGeneration, ReportGeneration, Edit, Move, Copy, AnalysisFileGeneration, Analysis or Other}
