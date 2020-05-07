@@ -30,7 +30,7 @@ getFileType <- function(filePath) {
 #' @examples
 getFileHash <- function(filePath) {
   # Unit test
-  checksum <- md5sum(filePath)
+  checksum <- md5sum(path.expand(filePath))
   if (is.na(checksum)) {
     fileHash <- "NOHASH"
   } else {

@@ -63,7 +63,7 @@ tStartMetadataCapture <- function(metaDataCapture = T, repoPath = "", filePath =
 #' @examples
 #' tEndMetadataCapture(storageMode = "File", outputFolder="~/my_working_directory/", jsonFileName="my_project",useTimeStamp=T)
 #' tEndMetadataCapture(storageMode = "DB", outputFolder="~/my_working_directory/")
-tEndMetadataCapture <- function(storageMode = "File", outputFolder = "./", jsonFileName = "", useTimeStamp = T) {
+tEndMetadataCapture <- function(storageMode = "File", outputFolder = "./", jsonFileName = "", useTimeStamp = T, offset = 0) {
   # JJ 2020-04-03 separate DB code
   # argument storageMode = c("DB","File") changed, kept just for compatibility reasons in tests
   # @param storageMode should be one of "None", "File" or "DB"
@@ -92,7 +92,7 @@ tEndMetadataCapture <- function(storageMode = "File", outputFolder = "./", jsonF
       # }
     }
 
-    tEndAction() # close top level action
+    tEndAction(offset = offset + 1) # close top level action
     tSaveMetadataToFile(outputFolder = outputFolder, jsonFileName = jsonFileName, useTimeStamp = useTimeStamp)
 
     #  JJ 2020-04-03 separate DB code

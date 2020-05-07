@@ -5,13 +5,8 @@
 \title{tStartMetadataCapture
 Starts meta data capture, Initiates global objects for file, action and system infos}
 \usage{
-tStartMetadataCapture(
-  metaDataCapture = T,
-  repoPath = "",
-  filePath = "",
-  actionType = "Run",
-  offset = 0
-)
+tStartMetadataCapture(metaDataCapture = T, repoPath = "",
+  filePath = "", actionType = "Run", offset = 0)
 }
 \arguments{
 \item{repoPath}{optional: path of folder or file in repository to determine the PMx activity}
@@ -21,9 +16,6 @@ tStartMetadataCapture(
 \item{actionType}{should be one of Run, DataImport, TLFGeneration, ReportGeneration, Edit, Move, Copy, AnalysisFileGeneration, Analysis or Other}
 
 \item{offset}{optional: if action should be defined by a calling function of higher level}
-}
-\value{
-
 }
 \description{
 tStartMetadataCapture

@@ -279,6 +279,13 @@ tStoreFileMetadata <- function(access = c("read", "write"),
   tryCatch(
     withCallingHandlers({
       if (!is.na(filePath)){
+        tryCatch(
+          filePath <- file_path_as_absolute(filePath), 
+          error = function(e) {
+            errorMessage <- paste0("Warning in tStoreFileMetadata: ",filePath," does not exist.")
+            logErrorMessage(errorMessage)
+          } )
+        # to get always absolute paths, throws exception, if path not exists
         fi <- FileInfo$new(init = "auto", access = access, filePath = filePath)
       } else {
         fi <- FileInfo$new(init = "manual", access = access)

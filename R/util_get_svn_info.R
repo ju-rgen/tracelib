@@ -23,7 +23,12 @@ getFullFilePath <- function(filePath) {
 getSVNInfo <- function(filePath) {
   # Integration test
   
-  if (tlconst$READ_SVN_INFO == FALSE) { return(NULL) }
+  #ToDo: check, if creation of environments tlvar, tlconst is possible in function tStartMetadataCapture instead of in sourcing of file initGlobals.R
+  if (exists("tlconst")) {
+    if (exists("READ_SVN_INFO",tlconst)) {
+      if (tlconst$READ_SVN_INFO == FALSE) { return(NULL) }
+   }
+  }
   
   cmd <- sprintf('svn info "%s"', getFullFilePath(filePath))
 
@@ -83,7 +88,9 @@ extractTagValue <- function(svninfo, tag) {
 #' @examples
 getSVNStatus <- function(filePath) {
   # Integration test
-  if (tlconst$READ_SVN_INFO == FALSE) { return("-N") }
+  if (exists("tlconst")) {
+    if (tlconst$READ_SVN_INFO == FALSE) { return("-N") }
+  }
   cmd <- sprintf('svn status "%s"', filePath)
 
   svnstatus <- tryCatch({

@@ -22,15 +22,25 @@ ActionInfo <- setRefClass(
   ),
 
   methods = list(
-    initialize = function(init = "auto", offset = 0, actionType = "Other") {
+    initialize = function(init = "auto", offset = 0, actionType = "Other", actionName = NA, description = NA) {
       # Integration test
 
       initializeEmpty()
 
       if (init == "auto") {
-        funcInfo <- getCallInfo(offset = offset + 2) # offset + 2 : remove row for call of class and this method
-        actionName <<- as.character(funcInfo$funcName)
+        
+        #setGlobalStackInfos()
+        #logCallStack()
+
         actionType <<- actionType
+        
+        funcInfo <- getCallInfo(offset = offset + 2) # offset + 2 : remove row for call of class and this method
+        
+        if (is.na(actionName)) {
+          actionName <<- as.character(funcInfo$funcName)
+        } else {
+          actionName <<- actionName
+        }
 
         # If the function is part of an installed package, there is no file path available (mostly)
         if (funcInfo$envName == "R_GlobalEnv") {
@@ -45,7 +55,11 @@ ActionInfo <- setRefClass(
         systemId <<- 1
         groupId <<- "1" # Always the same
 
-        description <<- getCallStackAsString(offset = offset + 1) #TODO: should we keep this?
+         if (is.na(description)) {
+           description <<- getCallStackAsString(offset = offset + 1) #TODO: should we keep this?
+         } else {
+           description <<- description
+        }
       }
     },
 
@@ -96,8 +110,7 @@ ActionInfo <- setRefClass(
       rdbFilePath <- paste(.libPaths()[1], pkgDetails$package, "R",
                            paste0(pkgDetails$package, ".rdb"), sep = "/"
       )
-      fi$fileHash <- getFileHash(rdbFilePath)
-
+      fi$fileHash <- paste0("md5:", getFileHash(rdbFilePath))
       scriptFileInfo <<- fi
     },
 

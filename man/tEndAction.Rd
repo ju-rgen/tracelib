@@ -4,7 +4,7 @@
 \alias{tEndAction}
 \title{Indicates end of action}
 \usage{
-tEndAction()
+tEndAction(offset = 0)
 }
 \value{
 
