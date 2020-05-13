@@ -24,6 +24,17 @@ getFunctionEnv <- function(funcName) {
 getPackageDetails <- function(envName) {
   # Unit test ? (with some default package)
   tryCatch({
+    if (is.null(envName) || envName == "") {
+      pkgDetails <- list(
+        package = paste0(envName, "isNoPackage"),
+        version = "NoPackage",
+        author = "NoPackage",
+        details = "NoPackage",
+        built = "1970-01-01 00:00:00 UTC",
+        warnings = ""
+      )
+      return (pkgDetails)
+    }
     pkgDesc <- packageDescription(envName)
     pkgAuthor <-str_trim(str_trunc(str_replace(pkgDesc$Author,
                                                "\\[(.)*\\]",

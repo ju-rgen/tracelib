@@ -76,13 +76,13 @@ tEndMetadataCapture <- function(storageMode = "File", outputFolder = "./", jsonF
     # update empty activityIds of actions and written files 
     # in case an activityId could not be determined in tStartMetadataCapture
     # and was first determined by an output file in the meantime, see tStoreFileMetadata
-    if (tlvar$ACTIVITY_ID != "" & getActiveAction()$activityId == "" )
+    if (!is.null(tlvar$ACTIVITY_ID) && tlvar$ACTIVITY_ID != "" && getActiveAction()$activityId == "" )
     {
       for (ai in tlvar$ACTION_INFOS) {
-        if (ai$activityId == "") {
+        if (!is.null(ai$activityId) && ai$activityId == "") {
           ai$activityId <- tlvar$ACTIVITY_ID 
           for (fi in ai$outputFileInfos) {
-            if (fi$accessInfo == "write" & fi$activityId == "") { fi$activityId <- tlvar$ACTIVITY_ID }
+            if (!is.null(fi$accessInfo) && fi$accessInfo == "write" && (is.null(fi$activityId) || fi$activityId == "")) { fi$activityId <- tlvar$ACTIVITY_ID }
           }
         }
       }

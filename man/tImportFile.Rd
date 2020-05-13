@@ -4,16 +4,28 @@
 \alias{tImportFile}
 \title{creates action for the import of one file from source to target location}
 \usage{
-tImportFile(importActionDescription = "", sourceRepoType = "Unknown",
-  sourceFilePath = "Unknown", sourceFileHash = "Unknown",
-  sourceRepoVersion = "Unknown", sourceRepoRoot = "",
-  sourceModified = tlconst$OT, sourceModifiedBy = "",
-  sourceQualityChecked = F, sourceDescription = "",
-  targetRepoType = "Unknown", targetFilePath = "Unknown",
-  targetFileHash = "Unknown", targetRepoVersion = "Unknown",
-  targetRepoRoot = "", targetModified = tlconst$OT,
-  targetModifiedBy = "", targetQualityChecked = F,
-  targetDescription = "", offset = 0)
+tImportFile(
+  importActionDescription = "",
+  sourceRepoType = "Unknown",
+  sourceFilePath = "Unknown",
+  sourceFileHash = "Unknown",
+  sourceRepoVersion = "Unknown",
+  sourceRepoRoot = "",
+  sourceModified = tlconst$OT,
+  sourceModifiedBy = "",
+  sourceQualityChecked = F,
+  sourceDescription = "",
+  targetRepoType = "Unknown",
+  targetFilePath = "Unknown",
+  targetFileHash = "Unknown",
+  targetRepoVersion = "Unknown",
+  targetRepoRoot = "",
+  targetModified = tlconst$OT,
+  targetModifiedBy = "",
+  targetQualityChecked = F,
+  targetDescription = "",
+  offset = 0
+)
 }
 \arguments{
 \item{importActionDescription}{optional: any identifying and/or valuable information about the import action}
@@ -55,6 +67,9 @@ tImportFile(importActionDescription = "", sourceRepoType = "Unknown",
 \item{sourcedescription}{optional: any valuable additional information available for the source file}
 
 \item{targetdescription}{optional: any valuable additional information available for the target file}
+}
+\value{
+
 }
 \description{
 besides a description for the action only metadata for the source and the target file and location are passed.

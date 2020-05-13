@@ -56,7 +56,7 @@ writeJsonObjectToFile <- function(jsonObj, outputFolder, jsonFileName = "", useT
   fileName <- paste0(fileName, ".json")
 
   if (outputFolder != "") {
-    write(jsonObj, paste0(outputFolder, fileName))
+    write(jsonObj, paste(outputFolder, fileName, sep="/"))
   }
 }
 

@@ -59,7 +59,8 @@ tEndAction <- function(offset = 0) {
     withCallingHandlers({
       
       ai <- getActiveAction()
-      
+      if (is.null(ai))
+        stop("No action found")
       funcInfo <- getCallInfo(offset = offset + 1) 
       functionName <<- as.character(funcInfo$funcName)
       if (ai$actionName != functionName) {

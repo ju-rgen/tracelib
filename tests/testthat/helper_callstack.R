@@ -29,6 +29,10 @@ call_action <- function() {
   tStartAction(actionType = "Other")
   # getCallInfo()
   # getCallingFunctionName(-1)
+  
+  d<-tReadCsv("../data/input1.csv")
+  tWriteCsv(d, "../data/output1.csv")
+  
   tEndAction()
 }
 
@@ -36,12 +40,12 @@ workflow <- function(storageMode = "File",outputFolder) {
   tStartMetadataCapture(metaDataCapture = T, actionType = "ImportFile")
 
   #tReadCsv(filePath)
-
   call_action()
-  tEndMetadataCapture(storageMode = storageMode,
+  #tEndAction()
+  return(tEndMetadataCapture(storageMode = storageMode,
                       outputFolder = outputFolder,
                       jsonFileName = "test_workflow",
-                      useTimeStamp = F)
+                      useTimeStamp = F))
 }
 
 
@@ -55,6 +59,13 @@ initAi <- function(){
   return(ai)
 }
 
+prepareTempDataDir <- function(outputFolder = tempdir()) {
+  dirname <- tempfile(pattern = "datadir", tmpdir = outputFolder)
+  if (!dir.exists(dirname)) {
+    dir.create(dirname)
+  }
+  return (dirname)
+}
 
 initConst()
 

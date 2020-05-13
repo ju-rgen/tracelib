@@ -13,8 +13,8 @@ test_that("testing file info class", {
   expect_is(fi, "FileInfo")
   expect_equal(fi$fileHash,"md5:NOHASH")
   expect_equal(fi$repoType,"Local")
-  expect_equal(fi$repoPath,"data/input1.csv")
-  expect_equal(fi$repoVersion,"-1")
+  expect_match(fi$repoPath,".*#data/input1.csv")
+  expect_equal(nchar(fi$repoVersion), 13)
   expect_equal(fi$repoModified,tlconst$OT)
   expect_equal(fi$accessInfo,"read")
   expect_equal(fi$fileType,"Data")
@@ -57,7 +57,6 @@ test_that("testing action info initialize and tStartAction", {
   ai1 <- tlvar$ACTION_INFOS[[1]]
 
   expect_length(ai1$toList(),12)
-
   expect_is(ai1, "ActionInfo")
   expect_equal(ai1$actionName, "workflow")
   expect_equal(ai1$executedBy, Sys.info()[["user"]] )
@@ -73,8 +72,8 @@ test_that("testing action info initialize and tStartAction", {
   
   ai2 <- tlvar$ACTION_INFOS[[2]]
   
-  expect_length(ai2$toList(),12)
-  
+  expect_length(ai2$toList(),14) # inputFileInfos and outputFileInfos added to workflow
+
   expect_is(ai2, "ActionInfo")
   expect_is(ai2$superAction,"ActionInfo")
   expect_equal(ai2$actionName, "call_action")
